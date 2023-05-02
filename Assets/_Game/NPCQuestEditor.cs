@@ -5,7 +5,7 @@ using UnityEditor;
 public class NPCQuestEditor : Editor
 {
     SerializedProperty questTypeProp;
-    SerializedProperty questEnemyNameProp;
+    SerializedProperty questEnemyProp;
     SerializedProperty questKillAmountProp;
     SerializedProperty questKillTurnInProp;
     SerializedProperty questFetchItemNameProp;
@@ -15,11 +15,14 @@ public class NPCQuestEditor : Editor
     SerializedProperty questDeliveryItemNameProp;
     SerializedProperty questDeliveryItemQuantityProp;
     SerializedProperty questDeliveryItemDropOffProp;
+    SerializedProperty FetchQuestTextProp;
+    SerializedProperty DeliveryQuestTextProp;
+    SerializedProperty KillQuestTextProp;
 
     private void OnEnable()
     {
         questTypeProp = serializedObject.FindProperty("_questType");
-        questEnemyNameProp = serializedObject.FindProperty("_questEnemyName");
+        questEnemyProp = serializedObject.FindProperty("_questEnemy");
         questKillAmountProp = serializedObject.FindProperty("_questKillAmount");
         questKillTurnInProp = serializedObject.FindProperty("_questKillTurnIn");
         questFetchItemNameProp = serializedObject.FindProperty("_questFetchItemName");
@@ -29,6 +32,9 @@ public class NPCQuestEditor : Editor
         questDeliveryItemNameProp = serializedObject.FindProperty("_questDeliveryItemName");
         questDeliveryItemQuantityProp = serializedObject.FindProperty("_questDeliveryItemQuantity");
         questDeliveryItemDropOffProp = serializedObject.FindProperty("_questDeliveryItemDropOff");
+        FetchQuestTextProp = serializedObject.FindProperty("_FetchQuestText");
+        DeliveryQuestTextProp = serializedObject.FindProperty("_DeliveryQuestText");
+        KillQuestTextProp = serializedObject.FindProperty("_KillQuestText");
     }
 
     public override void OnInspectorGUI()
@@ -46,20 +52,23 @@ public class NPCQuestEditor : Editor
         switch (questType)
         {
             case NPCQuest.QuestType.Kill:
-                EditorGUILayout.PropertyField(questEnemyNameProp);
+                EditorGUILayout.PropertyField(questEnemyProp);
                 EditorGUILayout.PropertyField(questKillAmountProp);
                 EditorGUILayout.PropertyField(questKillTurnInProp);
+                EditorGUILayout.PropertyField(KillQuestTextProp);
                 break;
             case NPCQuest.QuestType.Fetch:
                 EditorGUILayout.PropertyField(questFetchItemNameProp);
                 EditorGUILayout.PropertyField(questItemPickUpProp);
                 EditorGUILayout.PropertyField(questFetchItemQuantityProp);
                 EditorGUILayout.PropertyField(questFetchItemDropOffProp);
+                EditorGUILayout.PropertyField(FetchQuestTextProp);
                 break;
             case NPCQuest.QuestType.Delivery:
                 EditorGUILayout.PropertyField(questDeliveryItemNameProp);
                 EditorGUILayout.PropertyField(questDeliveryItemQuantityProp);
                 EditorGUILayout.PropertyField(questDeliveryItemDropOffProp);
+                EditorGUILayout.PropertyField(DeliveryQuestTextProp);
                 break;
         }
 
@@ -67,3 +76,6 @@ public class NPCQuestEditor : Editor
         serializedObject.ApplyModifiedProperties();
     }
 }
+
+
+
